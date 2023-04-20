@@ -1,0 +1,154 @@
+
+ CREATE TABLE tb_kavidhass_custome(
+ id INT  NOT NULL AUTO_INCREMENT ,
+cus_name VARCHAR (50) NOT NULL,
+cus_code VARCHAR (60) NOT NULL,
+ email  VARCHAR (70) NOT NULL,
+ phone  VARCHAR (80) NOT NULL,
+ contact_person_name VARCHAR (90) NOT NULL,
+ contact_person_phone VARCHAR (100) NOT NULL,
+ cus_status VARCHAR (80) NOT NULL,
+ created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,	
+ created_by VARCHAR (70) NOT NULL ,
+ modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+ modified_by VARCHAR (80)  NOT NULL ,
+PRIMARY KEY(id)
+ );
+ __________________*___________________*____________________*_____________________*_______________________*__________________________*__________________________
+
+ CREATE TABLE tb_kavidhass_customer_address(
+ id INT NOT NULL AUTO_INCREMENT ,
+ customer_id Int NOT NULL,
+ address_type VARCHAR (60) NOT NULL,
+ address_line1 VARCHAR (70) NOT NULL,
+ address_line2 VARCHAR (80) NOT NULL,
+ city VARCHAR (90) NOT NULL,
+ state VARCHAR (100) NOT NULL,
+ country VARCHAR (90) NOT NULL,
+ postal_code VARCHAR (100) NOT NULL ,
+ 	PRIMARY KEY(id),	
+ CONSTRAINT tb_kavidhass_customer_address UNIQUE (customer_id,address_type),
+ CONSTRAINT tb_kavidha_custo FOREIGN KEY (customer_id)
+   REFERENCES tb_kavidhass_custome(id)
+ );
+ ____________________*_________________*_________________*______________________*___________________*____________________*_______________________
+ 
+CREATE TABLE  tb_kavi_customer_order(
+id INT NOT NULL AUTO_INCREMENT ,
+customer_id INT  NOT NULL,
+order_no INT NOT NULL,
+order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+no_of_items INT NOT NULL,
+order_sub_total INT NOT NULL,
+order_discount INT NOT NULL,
+payment_type VARCHAR (50) NOT NULL,
+delivery_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+cus_status VARCHAR (70) NOT NULL,
+created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+created_by VARCHAR (50) NOT NULL,
+modified_date TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
+modified_by VARCHAR (80) NOT NULL ,
+PRIMARY  KEY (id),
+ CONSTRAINT fh_kavi_customer_order FOREIGN KEY (customer_id)
+   REFERENCES tb_kavidhass_custome(id)
+);
+_______________*____________*_____________________*________________________________*______________________________*______________________________________
+ 
+CREATE TABLE tb_kavi_customer_order_item(
+id INT NOT NULL,
+order_id INT NOT NULL,
+item_name  VARCHAR (50) NOT NULL,
+item_sku  VARCHAR (80) NOT NULL ,
+item_rate VARCHAR (50) NOT NULL,
+ordered_qty VARCHAR (50) NOT NULL,
+order_total VARCHAR (100) NOT NULL,
+
+ PRIMARY KEY (id),
+
+ CONSTRAINT fh_kavi_customer_order FOREIGN KEY (order_id)
+   REFERENCES tb_kavi_customer_order(id)
+);
+___________________*_____________________*__________________**___________________*___________________________*___________________________________
+
+insert INTO tb_kavidhass_custome(id,cus_name,cus_code, email,phone,contact_person_name,contact_person_phone,cus_status,created_by,modified_by) VALUES 
+(1,'kavidhas','288942','khha@MAIL','988979452','KAVIDHAS','8489584','Active','kavi','Admin'),
+(2,'bharath','288942','bharath@MAIL','988979452','bharath','8489584','Active','bharath','Admin'),
+(3,'manimaran','288942','manimaran@MAIL','988979452','manimaran','34133','inactive','manimaran','Admin'),
+(5,'maddy','288942','maddy@MAIL','988979452','maddy','33333','Active','maddy','Admin'),
+(6,'akaash','288942','akaash@MAIL','988979452','akaash','33333','Active','akaash','Admin'),
+(7,'nanthini','288942','nanthini@MAIL','988979452','nanthini','53333','inactive','nanthini','Admin'),
+(8,'nantha','288942','nantha@MAIL','778979452','nantha','84895676784','inactive','nantha','nantha'),
+(9,'guna','288942','guna@MAIL','989590909452','nagulan','8489584','inactive','kavi','nagulan'),
+(10,'bharathtb_kavidhass_custome','288942','guna@MAIL','989590909452','nagulan','8489584','inactive','kavi','nagulan');
+
+__________________*____________________________*_________________*____________________*____________________*___________________*__________________________*___________________________
+
+ INSERT INTO tb_kavidhass_customer_address (customer_id,address_type,address_line1,address_line2,city,state,country,postal_code) VALUES
+(1,'Home','thomas mount','11 street','chennai','tamilnadu','india','8486'),
+(1,'office','pachaiyappas','new avadi road','chennai','tamilnadu','india','8486'),
+(2,'office','maduraivayal','punthamaille road','chennai','tamilnadu','india','848456'),
+(2,'Home','ice house','north madaras','chennai','tamilnadu','india','8486'),
+(3,'office','triple keani','mailai street','chennai','tamilnadu','india','999456'),
+(3,'Home','pattukottai','kandiyar street','thanjavur','tamilnadu','india','8456'),
+(4,'office','pattukottai','kandiyar street','thanjavur','tamilnadu','india','614626'),
+(4,'Home','maduraivayal','maniyarpuram street','thanjavur','tamilnadu','india','614626'),
+(5,'office','pattukottai','kandiyar street','chennai','tamilntb_kavidhass_customeadu','india','614626'),tb_kavi_customer_order_itemtb_kavi_customer_order_item
+(5,'Home','punthamaille','44 street','chennai','tamilnadu','india','614626'),
+(6,'Home','pattukottai','chennai','chennai','tamilnadu','india','614626'),
+(6,'office','triple keani'','kandiyar street','chennai','tamilnadu','india','614626'),
+(7,'Home','thomas mount','kandiyar street','chennai','tamilnadu','india','614626'),
+(8,'Home','perampakkam mount','kandiyar street','chennai','tamilnadu','india','614626'),
+(8,'office','perampakkam mount','kandiyar street','chennai','tamilnadu','india','614626');
+
+__________________*____________________*______________________*__________________________*______________________*______
+
+INSERT INTO tb_kavi_customer_order (customer_id,order_no,no_of_items,
+order_sub_total,order_discount,payment_type,cus_status,created_by,modified_by)
+VALUES
+(1,501,3,4000,50,'debit card','dispatched','Admin','Admin'),
+(2,401,2,89000,50,'credit card','dispatched','Admin','Admin'),
+(3,301,4,4080,50,'cash on delivery','dispatched','Admin','Admin'),
+(4,311,1,3600,50,'debit card','dispatched','Admin','Admin'),
+(5,551,4,7000,50,'cash on delivery','dispatched','Admin','Admin'),
+(6,101,3,9800,50,'debit card','dispatched','Admin','Admin'),
+(7,901,2,6500,50,'cash on delivery','dispatched','Admin','Admin');
+
+_____________________________*_________________________*___________________________*___________________*______________________*_________________________
+
+INSERT INTO tb_kavi_customer_order_item(id,order_id,item_name,item_sku,item_rate,ordered_qty,order_total)
+VALUES
+(1,1,'headphones','godown',500,1,500),
+(2,1,'watch','godown',1000,2,2000),
+(3,1,'foundation','godown',2000,1,2000),
+(4,2,'diaper','godown',1500,3,4500),
+(5,2,'wipes','godown',2000,4,8000),
+(6,3,'shirt','godown',3000,1,3000),
+(7,3,'jeans','godown',4000,2,8000);
+
+_______________*____________________*_____________________________*________________________________________
+
+select * from tb_kavidhass_custome;
+______________*__________________*_________________________*__________________*_____________________*____________________
+ 
+UPDATE tb_kavidhass_custome
+SET cus_status='Deleted',
+modified_date=CURRENT_TIMESTAMP,
+modified_by = 'kavi'
+WHERE cus_status ='ACTIVE' LIMIT 5;
+_____________*________________________*________________________*______________________
+
+
+ SELECT * FROM tb_kavidhass_custome WHERE cus_status='Active';
+
+__________________________+++++_______________________*_____________________*__________________________________*__________________________________________________________*_________________________________*_______________________*____________________________*__________________________*__________________
+
+ 
+SELECT c.id,c.cus_name,c.email,c.phone,c.cus_status,c.contact_person_phone,a.address_type
+FROM tb_kavidhass_custome c 
+INNER JOIN tb_kavidhass_customer_address a ON  a.customer_id = c.id WHERE c.`cus_status` = 'Active' AND a.address_type= 'Home';
+ 
+ _____________________* ________________________*_______________________________________*______________________________________*____________________________________**___________________________________________*______________________*___________________________*_________*____________
+
+SELECT o.id,i.order_id,o.order_no,o.no_of_items,o.order_sub_total,o.order_discount,o.order_total_amount,o.payment_type,o.delivery_date,o.`status`,o.delivery_date,i.item_name,i.item_sku,i.item_rate,i.ordered_qty,i.order_total
+FROM tb_kavi_customer_order a
+JOIN tb_kavi_customer_order_item b ON a. = o.id WHERE o.id LIMIT 10;
